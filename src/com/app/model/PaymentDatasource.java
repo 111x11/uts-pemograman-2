@@ -66,5 +66,41 @@ public class PaymentDatasource {
         }  
         return pym;
     }
+    
+    public boolean insert(Payment pym){
+        boolean status = false;
+        String sql = "INSERT INTO payment VALUES(?,?,?,?,?)";
+        try{
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, pym.getIdpayment());
+            statement.setString(2, pym.getTgglpayment());
+            statement.setString(3, pym.getNomorpo());
+            statement.setString(4, pym.getSupplier());
+            statement.setString(5, pym.getTotaltagihan());
+            int result = statement.executeUpdate();
+            status = result > 0;  
+        }
+        catch(Exception e){     
+        }
+        return status;
+    }
+    
+        public boolean update(Payment pym){
+        boolean status = false;
+        String sql = "UPDATE payment SET tgglpaymen=?, nomorpo=?, supplier=?, totaltagihan=? WHERE idpayment=?";
+        try{
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(2, pym.getTgglpayment());
+            statement.setString(3, pym.getNomorpo());
+            statement.setString(4, pym.getSupplier());
+            statement.setString(5, pym.getTotaltagihan());
+            statement.setString(1, pym.getIdpayment());
+            int result = statement.executeUpdate();
+            status = result > 0;  
+        }
+        catch(Exception e){     
+        }
+        return status;
+    }
 }
 
